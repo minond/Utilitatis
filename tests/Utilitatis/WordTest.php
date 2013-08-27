@@ -17,6 +17,16 @@ class WordTest extends PHPUnit_Framework_TestCase
         $this->word = new Word;
     }
 
+    public function dataProviderStrings()
+    {
+        return [
+            [ 'property name' ],
+            [ 'property_name' ],
+            [ 'PropertyName' ],
+            [ 'propertyName' ],
+        ];
+    }
+
     public function testNewWordsCanBeCreated()
     {
         $this->assertTrue($this->word instanceof Word);
@@ -65,4 +75,37 @@ class WordTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals('marcos', $this->word->pluralize('Marcos'));
     }
+
+    /**
+     * @dataProvider dataProviderStrings
+     */
+    public function testConvertingToHumanCase($str)
+    {
+        $this->assertEquals('property name', $this->word->humanCase($str));
+    }
+
+    /**
+     * @dataProvider dataProviderStrings
+     */
+    public function testConvertingToClassicalCase($str)
+    {
+        $this->assertEquals('PropertyName', $this->word->classicalCase($str));
+    }
+
+    /**
+     * @dataProvider dataProviderStrings
+     */
+    public function testConvertingToCamelCase($str)
+    {
+        $this->assertEquals('propertyName', $this->word->camelCase($str));
+    }
+
+    /**
+     * @dataProvider dataProviderStrings
+     */
+    public function testConvertingToPropertyCase($str)
+    {
+        $this->assertEquals('property_name', $this->word->propertyCase($str));
+    }
 }
+

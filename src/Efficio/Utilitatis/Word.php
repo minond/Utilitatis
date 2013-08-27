@@ -95,4 +95,49 @@ class Word
 
         return $word;
     }
+
+    /**
+     * property name = property name
+     * property_name = property name
+     * PropertyName = property name
+     * propertyName = property name
+     * @param string $word
+     * @return string
+     */
+    public function humanCase($word)
+    {
+        return trim(strtolower(str_replace('_', ' ',
+            preg_replace('/([A-Z])/', ' $1', $word))));
+    }
+
+    /**
+     * property name = PropertyName
+     * @param string $word
+     * @return string
+     */
+    public function classicalCase($word)
+    {
+        return str_replace(' ', '', ucwords($this->humanCase($word)));
+    }
+
+    /**
+     * property name = propertyName
+     * @param string $word
+     * @return string
+     */
+    public function camelCase($word)
+    {
+        return lcfirst($this->classicalCase($word));
+    }
+
+    /**
+     * property name = property_name
+     * @param string $word
+     * @return string
+     */
+    public function propertyCase($word)
+    {
+        return str_replace(' ', '_', $this->humanCase($word));
+    }
 }
+
