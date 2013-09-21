@@ -54,7 +54,15 @@ class MergerTest extends PHPUnit_Framework_TestCase
         $str = $this->merger->merge('the quick brown {animal1} jumped over the lazy {animal2}', [
             'animal1' => 'fox',
         ]);
-        $this->assertEquals('the quick brown fox jumped over the lazy ', $str);;
+        $this->assertEquals('the quick brown fox jumped over the lazy ', $str);
+    }
+
+    public function testMissingDataFieldsAreRemovedUnlessSpecified()
+    {
+        $str = $this->merger->merge('the quick brown {animal1} jumped over the lazy {animal2}', [
+            'animal1' => 'fox',
+        ], false);
+        $this->assertEquals('the quick brown fox jumped over the lazy {animal2}', $str);
     }
 }
 

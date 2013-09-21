@@ -33,13 +33,17 @@ class Merger
     /**
      * @param string $str
      * @param array $data
+     * @param boolean $all, replace all merge fields, regardless of it being
+     * included in the data array
      * @return array
      */
-    public function merge($str, $data)
+    public function merge($str, $data, $all = true)
     {
         foreach (self::getMergeFields($str) as $field) {
-            $val = isset($data[ $field ]) ? $data[ $field ] : '';
-            $str = str_replace(self::getMergeField($field), $val, $str);
+            if ($all || isset($data[ $field ])) {
+                $val = isset($data[ $field ]) ? $data[ $field ] : '';
+                $str = str_replace(self::getMergeField($field), $val, $str);
+            }
         }
 
         return $str;
