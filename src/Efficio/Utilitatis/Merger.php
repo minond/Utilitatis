@@ -15,7 +15,7 @@ class Merger
      */
     protected static function getMergeFields($str)
     {
-        preg_match_all('/\{(.+?)\}/', $str, $matches);
+        preg_match_all('/\{(\w+?)\}/', $str, $matches);
         return is_array($matches) && isset($matches[1]) ?
             array_unique($matches[1]) : [];
     }

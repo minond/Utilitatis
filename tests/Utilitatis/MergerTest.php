@@ -64,5 +64,12 @@ class MergerTest extends PHPUnit_Framework_TestCase
         ], false);
         $this->assertEquals('the quick brown fox jumped over the lazy {animal2}', $str);
     }
+
+    public function testMergeFieldsCannotHaveAnythingButAplhaNumericCharacters()
+    {
+        $str = $this->merger->merge('the quick brown { animal1: true } jumped over the lazy {animal2$}', [
+        ], false);
+        $this->assertEquals('the quick brown { animal1: true } jumped over the lazy {animal2$}', $str);
+    }
 }
 
