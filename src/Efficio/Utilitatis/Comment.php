@@ -5,9 +5,9 @@ namespace Efficio\Utilitatis;
 use ReflectionClass;
 
 /**
- * annotation reader
+ * comment reader
  */
-class Annotation
+class Comment
 {
     /**
      * param character

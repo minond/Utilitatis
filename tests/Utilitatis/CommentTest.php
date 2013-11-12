@@ -2,18 +2,18 @@
 
 namespace Efficio\Tests\Utilitatis;
 
-use Efficio\Utilitatis\Annotation;
+use Efficio\Utilitatis\Comment;
 use PHPUnit_Framework_TestCase;
 
 /**
  * Lorem ipsum dolor sit amet
  */
-class AnnotationTest extends PHPUnit_Framework_TestCase
+class CommentTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var Annotation
+     * @var Comment
      */
-    public $ann;
+    public $comment;
 
     /**
      * Lorem ipsum dolor sit amet 3
@@ -49,7 +49,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->ann = new Annotation(__CLASS__);
+        $this->comment = new Comment(__CLASS__);
     }
 
     public function testRawClassCommentsCanBeRetrieved()
@@ -57,7 +57,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
         $this->expectOutputString('/**
  * Lorem ipsum dolor sit amet
  */');
-        echo $this->ann->raw();
+        echo $this->comment->raw();
     }
 
     /**
@@ -68,7 +68,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
         $this->expectOutputString('/**
      * Lorem ipsum dolor sit amet 2
      */');
-        echo $this->ann->raw(__FUNCTION__);
+        echo $this->comment->raw(__FUNCTION__);
     }
 
     public function testRawPropertyCommentsCanBeRetrieved()
@@ -76,7 +76,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
         $this->expectOutputString('/**
      * Lorem ipsum dolor sit amet 3
      */');
-        echo $this->ann->raw('dummyproperty');
+        echo $this->comment->raw('dummyproperty');
     }
 
     public function testStringsAreCleanedUp()
@@ -90,7 +90,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
             '@param string $two',
             '@param string $three',
             '@return string three',
-        ], Annotation::clean('
+        ], Comment::clean('
           /**
            * Ut wisi enim ad minim veniam, quis nostrud exerci tation
            * ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
@@ -127,7 +127,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
                 'string $two',
                 'string $three',
             ],
-        ], Annotation::parse('
+        ], Comment::parse('
           /**
            * @note hello, world
            *
@@ -159,7 +159,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
     public function testSinglePropertiesCanBeRetrieved()
     {
         $this->expectOutputString('hello, world');
-        echo $this->ann->doc('dummyproperty2', 'note');
+        echo $this->comment->doc('dummyproperty2', 'note');
     }
 
     public function testWholeDocumentStringCanBeReteived()
@@ -185,7 +185,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
                 'string $two',
                 'string $three',
             ],
-        ], $this->ann->doc('dummyproperty2'));
+        ], $this->comment->doc('dummyproperty2'));
     }
 
     public function testArrayPropertiesCanBeRetrieved()
@@ -194,7 +194,7 @@ class AnnotationTest extends PHPUnit_Framework_TestCase
             'string $one',
             'string $two',
             'string $three',
-        ], $this->ann->doc('dummyproperty2', 'param'));
+        ], $this->comment->doc('dummyproperty2', 'param'));
     }
 }
 
