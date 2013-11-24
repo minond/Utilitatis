@@ -68,12 +68,12 @@ class WordTest extends PHPUnit_Framework_TestCase
 
     public function testNonSEndingWordsAreAppendedTheLetterSByDefault()
     {
-        $this->assertEquals('marcos', $this->word->pluralize('Marco'));
+        $this->assertEquals('Marcos', $this->word->pluralize('Marco'));
     }
 
     public function testSEndingWordsAreNotAppendedTheLetterS()
     {
-        $this->assertEquals('marcos', $this->word->pluralize('Marcos'));
+        $this->assertEquals('Marcos', $this->word->pluralize('Marcos'));
     }
 
     /**

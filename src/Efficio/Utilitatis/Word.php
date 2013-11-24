@@ -83,11 +83,11 @@ class Word
      */
     public function pluralize($word)
     {
-        $word = strtolower($word);
+        $sword = strtolower($word);
         $specials = array_merge(static::$specials, $this->myspecials);
 
-        if (array_key_exists($word, $specials)) {
-            $word = $specials[ $word ];
+        if (array_key_exists($sword, $specials)) {
+            $word = $specials[ $sword ];
         } else if (substr($word, -1) !== 's') {
             // yup
             $word .= 's';
