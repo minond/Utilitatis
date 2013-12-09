@@ -2,10 +2,12 @@
 
 namespace Efficio\Utilitatis;
 
+use ArrayAccess;
+
 /**
  * easy to work with objects
  */
-class PublicObject
+class PublicObject implements ArrayAccess
 {
     /**
      * internal storage
@@ -55,6 +57,39 @@ class PublicObject
     {
         unset($this->data[ $var ]);
         return true;
+    }
+
+    /**
+     * @param string $var
+     * @param mixed $val
+     */
+    public function offsetSet($var, $val)
+    {
+        return $this->__set($var, $val);
+    }
+
+    /**
+     * @param string $var
+     */
+    public function offsetGet($var)
+    {
+        return $this->__get($var);
+    }
+
+    /**
+     * @param string $var
+     */
+    public function offsetExists($var)
+    {
+        return $this->__isset($var);
+    }
+
+    /**
+     * @param string $var
+     */
+    public function offsetUnset($var)
+    {
+        return $this->__unset($var);
     }
 }
 
