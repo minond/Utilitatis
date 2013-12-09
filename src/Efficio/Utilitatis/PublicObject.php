@@ -91,5 +91,13 @@ class PublicObject implements ArrayAccess
     {
         return $this->__unset($var);
     }
+
+    /**
+     * @return array
+     */
+    public function getArrayCopy()
+    {
+        return $this->data;
+    }
 }
 

@@ -57,6 +57,13 @@ class PublicObjectTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(isset($this->obj->test));
     }
 
+    public function testArrayCopyCanBeRetrieved()
+    {
+        $orig = [ 'test' => 123 ];
+        $this->obj = new PublicObject($orig);
+        $this->assertEquals($orig, $this->obj->getArrayCopy());
+    }
+
     public function testPropertiesCanBeUnsetUsingObjectNotation()
     {
         $this->obj->test = 1;
