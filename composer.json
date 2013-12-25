@@ -1,6 +1,7 @@
 {
     "name": "minond/utilitatis",
     "description": "Helper functions and classes",
+    "license": "GPL-2.0+",
 
     "authors": [
         {
