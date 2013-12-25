@@ -31,7 +31,7 @@ class PublicObject implements ArrayAccess
      */
     public function __set($var, $val)
     {
-        $this->data[ $var ] = $val;
+        $this->set($var, $val);
     }
 
     /**
@@ -39,7 +39,7 @@ class PublicObject implements ArrayAccess
      */
     public function __get($var)
     {
-        return $this->data[ $var ];
+        return $this->get($var);
     }
 
     /**
@@ -47,7 +47,7 @@ class PublicObject implements ArrayAccess
      */
     public function __isset($var)
     {
-        return isset($this->data[ $var ]);
+        return $this->has($var);
     }
 
     /**
@@ -55,8 +55,7 @@ class PublicObject implements ArrayAccess
      */
     public function __unset($var)
     {
-        unset($this->data[ $var ]);
-        return true;
+        return $this->remove($var);
     }
 
     /**
@@ -98,6 +97,40 @@ class PublicObject implements ArrayAccess
     public function getArrayCopy()
     {
         return $this->data;
+    }
+
+    /**
+     * @param string $var
+     * @param mixed $val
+     */
+    public function set($var, $val)
+    {
+        $this->data[ $var ] = $val;
+    }
+
+    /**
+     * @param string $var
+     */
+    public function get($var)
+    {
+        return $this->data[ $var ];
+    }
+
+    /**
+     * @param string $var
+     */
+    public function has($var)
+    {
+        return isset($this->data[ $var ]);
+    }
+
+    /**
+     * @param string $var
+     */
+    public function remove($var)
+    {
+        unset($this->data[ $var ]);
+        return true;
     }
 }
 
