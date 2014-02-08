@@ -27,6 +27,19 @@ class WordTest extends PHPUnit_Framework_TestCase
         ];
     }
 
+    public function dataForPluralizing()
+    {
+        // [ sigle, expected ]
+        return [
+            [ 'company', 'companies' ],
+            [ 'person', 'people' ],
+            [ 'cat', 'cats' ],
+            [ 'single', 'singles' ],
+            [ 'canoe', 'canoes' ],
+            [ 'moose', 'moose' ],
+        ];
+    }
+
     public function testNewWordsCanBeCreated()
     {
         $this->assertTrue($this->word instanceof Word);
@@ -74,6 +87,19 @@ class WordTest extends PHPUnit_Framework_TestCase
     public function testSEndingWordsAreNotAppendedTheLetterS()
     {
         $this->assertEquals('Marcos', $this->word->pluralize('Marcos'));
+    }
+
+    /**
+     * @dataProvider dataForPluralizing
+     */
+    public function testPluralizeWords($single, $expected)
+    {
+        $this->assertEquals($expected, $this->word->pluralize($single));
+    }
+
+    public function testWordsWithIdenticalSingluarAndPluralForm()
+    {
+        $this->assertEquals('bison', $this->word->pluralize('bison'));
     }
 
     /**

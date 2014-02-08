@@ -4,11 +4,33 @@ namespace Efficio\Utilitatis;
 
 /**
  * words manager
+ * http://en.wikipedia.org/wiki/English_plurals
  */
 class Word
 {
     /**
-     * @see http://answers.yahoo.com/question/index?qid=20090416095945AAaMI28
+     * words that have an indentical single and plural form
+     * http://en.wikipedia.org/wiki/English_plurals#Nouns_with_identical_singular_and_plural
+     * @var array
+     */
+    protected static $identical = [
+        'bison',
+        'buffalo',
+        'deer',
+        'fish',
+        'moose',
+        'pike',
+        'sheep',
+        'salmon',
+        'trout',
+        'swine',
+        'plankton',
+        'squid',
+    ];
+
+    /**
+     * http://answers.yahoo.com/question/index?qid=20090416095945AAaMI28
+     * @var array
      */
     protected static $specials = [
         'alumna' => 'alumnae',
@@ -47,6 +69,22 @@ class Word
         'supernova' => 'supernovae',
         'syllabus' => 'syllabi',
         'woman' => 'women',
+
+        'cherry' => 'cherries',
+        'lady' => 'ladies',
+        'sky' => 'skies',
+
+        'calf' => 'calves',
+        'leaf' => 'leaves',
+        'knife' => 'knives',
+        'life' => 'lives',
+
+        'kiss' => 'kisses',
+        'dish' => 'dishes',
+        'witch' => 'witches',
+        'hero' => 'heroes',
+        'potato' => 'potatoes',
+        'volcano' => 'volcanoes',
     ];
 
     /**
@@ -86,11 +124,14 @@ class Word
         $sword = strtolower($word);
         $specials = array_merge(static::$specials, $this->myspecials);
 
-        if (array_key_exists($sword, $specials)) {
-            $word = $specials[ $sword ];
-        } else if (substr($word, -1) !== 's') {
-            // yup
-            $word .= 's';
+        if (!in_array($word, static::$identical)) {
+            if (array_key_exists($sword, $specials)) {
+                $word = $specials[ $sword ];
+            } else if (substr($word, -1) === 'y') {
+                $word = substr($word, 0, -1) . 'ies';
+            } else if (substr($word, -1) !== 's') {
+                $word .= 's';
+            }
         }
 
         return $word;
